@@ -1,3 +1,5 @@
+const User = require("../models/user-model");
+
 // Home Logic
 const home = async (req, res) => {
     try {
@@ -10,11 +12,23 @@ const home = async (req, res) => {
 //Logic for Registration
 const register = async (req, res) => {
     try {
+        const { name, email, phone, password } = req.body;
         console.log(req.body);
-        res.status(200).json({message: req.body})
+
+        // Check if user already exists
+        let userExists = await User.findOne({email:email});
+        if(userExists){
+            return res.status(400).json({message: 'User Already Exists'})
+        }
+
+        // Create new user
+        newUser = new User({name, phone, email, password});
+        newUser.save();
+
+        res.status(201).json({ message: 'User registered successfully', newUser })
     } catch (error) {
         console.error(error)
     }
 }
 
-module.exports = { home , register}
+module.exports = { home, register }
