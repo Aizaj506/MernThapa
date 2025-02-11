@@ -1,4 +1,6 @@
 const User = require("../models/user-model");
+const bcrypt = require('bcrypt');
+
 
 // Home Logic
 const home = async (req, res) => {
@@ -9,7 +11,9 @@ const home = async (req, res) => {
     }
 }
 
+//*````````````````````````````````
 //Logic for Registration
+//*````````````````````````````````
 const register = async (req, res) => {
     try {
         const { name, email, phone, password } = req.body;
@@ -40,8 +44,45 @@ const register = async (req, res) => {
             userId: newUser._id.toString()
          });
     } catch (error) {
-        console.error(error)
+        res.status(500).json({ message: 'Server error', error });
     }
 }
 
-module.exports = { home, register }
+
+//*````````````````````````````````
+//Logic for Login
+//*````````````````````````````````
+const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Check if user exists
+        const existsUser = await User.findOne({ email });
+        console.log(existsUser)
+        if(!existsUser){
+            return res.status(400).json({message:'Invalid Email or Password'})
+        }
+
+        // Compare password
+        // const isMatchPassword = await bcrypt.compare(password, existsUser.password);
+        const isMatchPassword = await existsUser.matchPassword(password);
+        if (!isMatchPassword) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+
+        // Generate JWT token
+        const token = await existsUser.generateAuthToken();
+
+        res.status(200).json({ 
+            message: 'User Login successfully', 
+            user:existsUser, 
+            token, 
+            userId: existsUser._id.toString()
+         });
+
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+}
+
+module.exports = { home, register, login }

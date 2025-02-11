@@ -59,6 +59,10 @@ userSchema.pre("save", async function (next) {
     }
 });
 
+// Compare hashed password for login
+userSchema.methods.matchPassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+}
 // Json Web Token (JWT)
 /* 
     Tokens, such JWT's, are typically not stored in the database along woth other details of users. 
