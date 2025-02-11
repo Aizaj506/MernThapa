@@ -16,7 +16,7 @@ const home = async (req, res) => {
 //*````````````````````````````````
 const register = async (req, res) => {
     try {
-        const { name, email, phone, password } = req.body;
+        const { username, email, phone, password } = req.body;
         console.log(req.body);
 
         // Check if user already exists
@@ -31,7 +31,7 @@ const register = async (req, res) => {
         // console.log(hashPassword)
 
         // Create new user
-        const newUser = new User({name, phone, email, password});
+        const newUser = new User({username, phone, email, password});
         await newUser.save();
 
         // Generate JWT Tokens
