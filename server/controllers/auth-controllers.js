@@ -27,10 +27,18 @@ const register = async (req, res) => {
         // console.log(hashPassword)
 
         // Create new user
-        newUser = new User({name, phone, email, password});
-        newUser.save();
+        const newUser = new User({name, phone, email, password});
+        await newUser.save();
 
-        res.status(201).json({ message: 'User registered successfully', newUser })
+        // Generate JWT Tokens
+        const token = await newUser.generateAuthToken();
+
+        res.status(201).json({ 
+            message: 'User registered successfully', 
+            user:newUser, 
+            token, 
+            userId: newUser._id.toString()
+         });
     } catch (error) {
         console.error(error)
     }
