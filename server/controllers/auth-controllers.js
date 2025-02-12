@@ -44,7 +44,8 @@ const register = async (req, res) => {
             userId: newUser._id.toString()
          });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        // res.status(500).json({ message: 'Server error', error });
+        next(error)
     }
 }
 
@@ -81,7 +82,8 @@ const login = async (req, res) => {
          });
 
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        // res.status(500).json({ message: 'Server error', error });
+        next(error)
     }
 }
 
