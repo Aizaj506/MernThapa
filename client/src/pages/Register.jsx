@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import regImage from '../assets/images/registration.webp';
+import { Link } from 'react-router';
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -12,8 +13,8 @@ const Register = () => {
   const handleInputChange = (event) => {
     const name = event.target.name;
     const val = event.target.value;
-    console.log({[name]:val})
-    setUser({...user,[name]:val})
+    console.log({ [name]: val })
+    setUser({ ...user, [name]: val })
   }
 
   const handleUserFormSubmit = (event) => {
@@ -21,7 +22,7 @@ const Register = () => {
     console.log(user);
   }
   return (
-    <section className='h-screen bg-blue-950 text-white'>
+    <section className='h-[700px] bg-blue-950 text-white'>
       <main>
         <div className='h-screen flex justify-around'>
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 justify-items-center'>
@@ -34,7 +35,7 @@ const Register = () => {
               <form onSubmit={handleUserFormSubmit} action="" className='flex flex-col gap-4 w-full'>
                 <div className='flex items-center justify-between'>
                   <label htmlFor="username" className='font-bold'>Name</label>
-                  <input type="text" name='username' id='username' value={user.username} onChange={handleInputChange}  placeholder='Enter Your Name' className='p-1 outline-none text-black bg-gray-300 rounded-md shadow-md shadow-blue-300 hover:shadow-green-500' />
+                  <input type="text" name='username' id='username' value={user.username} onChange={handleInputChange} placeholder='Enter Your Name' className='p-1 outline-none text-black bg-gray-300 rounded-md shadow-md shadow-blue-300 hover:shadow-green-500' />
                 </div>
                 <div className='flex items-center justify-between'>
                   <label htmlFor="email" className='font-bold'>Email</label>
@@ -51,6 +52,10 @@ const Register = () => {
                 <hr className="border-t-2 border-gray-400 w-full my-4" />
                 <button type="submit" className='w-[80%] m-auto p-2 font-bold text-black bg-gray-300 rounded-md shadow-md shadow-blue-300 hover:bg-blue-500 hover:text-white transition duration-300 cursor-pointer'>Register Now</button>
               </form>
+              <p className="text-sm mt-4">
+                Already have an account? 
+                <Link to="/login" className="text-blue-400 ml-2 hover:underline">Login here</Link>
+              </p>
             </div>
           </div>
         </div>
