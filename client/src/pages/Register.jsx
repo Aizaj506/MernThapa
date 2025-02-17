@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import regImage from '../assets/images/registration.webp';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const Register = () => {
+
+  const navigate = useNavigate()
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -13,14 +16,29 @@ const Register = () => {
   const handleInputChange = (event) => {
     const name = event.target.name;
     const val = event.target.value;
-    console.log({ [name]: val })
+    // console.log({ [name]: val })
     setUser({ ...user, [name]: val })
   }
 
-  const handleUserFormSubmit = (event) => {
+  const handleUserFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(user);
-  }
+    try {
+      const response = await axios.post('http://localhost:5000/api/users/register', user, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      console.log("Response Data:", response);
+
+      if(response.statusText === "Created"){
+        setUser({username: "", email: "", phone: "", password: ""})
+        navigate('/login')
+      }
+    } catch (error) {
+      console.error("Registered Error", error.response?.data || error.message);
+    }
+  };
   return (
     <section className='h-[700px] bg-blue-950 text-white'>
       <main>
@@ -53,7 +71,7 @@ const Register = () => {
                 <button type="submit" className='w-[80%] m-auto p-2 font-bold text-black bg-gray-300 rounded-md shadow-md shadow-blue-300 hover:bg-blue-500 hover:text-white transition duration-300 cursor-pointer'>Register Now</button>
               </form>
               <p className="text-sm mt-4">
-                Already have an account? 
+                Already have an account?
                 <Link to="/login" className="text-blue-400 ml-2 hover:underline">Login here</Link>
               </p>
             </div>
