@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import regImage from '../assets/images/registration.webp';
 import { Link, useNavigate } from 'react-router';
+import { AuthContext } from '../context/authContext';
 
 const Register = () => {
 
   const navigate = useNavigate()
+  const storeTokenInLocalStorage = useContext(AuthContext)
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -31,7 +33,9 @@ const Register = () => {
 
       console.log("Response Data:", response);
 
-      if(response.statusText === "Created"){
+      if(response.status === 201){
+        console.log("Response From Server : ", response.data);
+        storeTokenInLocalStorage(response.data.token)
         setUser({username: "", email: "", phone: "", password: ""})
         navigate('/login')
       }

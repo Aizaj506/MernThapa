@@ -17,7 +17,7 @@ const home = async (req, res) => {
 const register = async (req, res) => {
     try {
         const { username, email, phone, password } = req.body;
-        console.log(req.body);
+        // console.log(req.body);
 
         // Check if user already exists
         let userExists = await User.findOne({ email: email });
@@ -59,7 +59,7 @@ const login = async (req, res) => {
 
         // Check if user exists
         const existsUser = await User.findOne({ email });
-        console.log(existsUser)
+        // console.log(existsUser)
         if (!existsUser) {
             return res.status(400).json({ message: 'Invalid Email or Password' })
         }

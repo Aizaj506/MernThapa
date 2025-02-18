@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import logImage from '../assets/images/login.webp';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import axios from 'axios';
+import { AuthContext } from '../context/authContext';
 
 const Login = () => {
+  const storeTokenInLocalStorage = useContext(AuthContext);
+  const navigate = useNavigate()
   const [user, setUser] = useState({
     email: "",
     password: ""
@@ -11,13 +15,28 @@ const Login = () => {
   const handleInputChange = (event) => {
     const name = event.target.name;
     const val = event.target.value;
-    console.log({ [name]: val })
+    // console.log({ [name]: val })
     setUser({ ...user, [name]: val })
   }
 
-  const handleUserFormSubmit = (event) => {
+  const handleUserFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(user);
+    try {
+      const response = await axios.post('http://localhost:5000/api/users/login', user, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log("Response Data : ", response);
+
+      if(response.status === 200){
+        storeTokenInLocalStorage(response.data.token)
+        setUser({email:"", password:""})
+        navigate('/')
+      }
+    } catch (error) {
+      console.log("Login Error ", error)
+    }
   }
   return (
     <section className='h-[700px] bg-blue-950 text-white'>
