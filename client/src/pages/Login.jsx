@@ -5,7 +5,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/authContext';
 
 const Login = () => {
-  const storeTokenInLocalStorage = useContext(AuthContext);
+  const {storeTokenInLocalStorage} = useContext(AuthContext);
   const navigate = useNavigate()
   const [user, setUser] = useState({
     email: "",

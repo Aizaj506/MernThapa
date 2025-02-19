@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import About from './pages/About'
 import Home from './pages/Home'
@@ -9,8 +9,10 @@ import Login from './pages/Login'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ErrorPage from './pages/ErrorPage'
+import Logout from './pages/Logout'
 
 const App = () => {
+
   return (
     <BrowserRouter>
       <Navbar />
@@ -21,6 +23,7 @@ const App = () => {
         <Route path="contact" element={<Contact />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
+        <Route path="logout" element={<Logout />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />

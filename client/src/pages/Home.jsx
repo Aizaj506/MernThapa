@@ -12,7 +12,7 @@ const Home = () => {
     navigate('/service')
   }
   return (
-    <main className=' bg-blue-950 pb-10 mt-10'>
+    <main className=' bg-blue-950 pb-10 pt-15'>
       <section>
         <div className="container flex flex-col justify-around items-center sm:flex-row">
           <div className='text-content w-[350px] sm:w-[450px] mt-10 ml-4 text-white font-bold'>
