@@ -3,11 +3,12 @@ import axios from 'axios'
 import regImage from '../assets/images/registration.webp';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../context/authContext';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Register = () => {
 
   const navigate = useNavigate()
-  const {storeTokenInLocalStorage} = useContext(AuthContext)
+  const { storeTokenInLocalStorage } = useContext(AuthContext)
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -25,21 +26,19 @@ const Register = () => {
   const handleUserFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/users/register', user, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      const response = await axios.post('http://localhost:5000/api/users/register', user);
       console.log("Response Data:", response);
-
-      if(response.status === 201){
-        console.log("Response From Server : ", response.data);
+      console.log("Response From Server : ", response.data.message);
+      if (response.status === 201) {
         storeTokenInLocalStorage(response.data.token)
-        setUser({username: "", email: "", phone: "", password: ""})
+        setUser({ username: "", email: "", phone: "", password: "" })
         navigate('/login')
       }
     } catch (error) {
-      console.error("Registered Error", error.response?.data || error.message);
+      console.log("Regesterd Error: ", error.response)
+      const err = error.response.data.extraDetails ? error.response.data.extraDetails : error.response.data.message
+      // console.log(err)
+      toast.error(err.message ? err.message : err)
     }
   };
   return (
@@ -81,6 +80,11 @@ const Register = () => {
           </div>
         </div>
       </main>
+      {/* React Tostify Container */}
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+      />
     </section>
   )
 }

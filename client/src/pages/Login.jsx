@@ -3,6 +3,7 @@ import logImage from '../assets/images/login.webp';
 import { Link, useNavigate } from 'react-router';
 import axios from 'axios';
 import { AuthContext } from '../context/authContext';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Login = () => {
   const {storeTokenInLocalStorage} = useContext(AuthContext);
@@ -30,11 +31,13 @@ const Login = () => {
       console.log("Response Data : ", response);
 
       if(response.status === 200){
+        toast.success('Login Succesfully!')
         storeTokenInLocalStorage(response.data.token)
         setUser({email:"", password:""})
         navigate('/')
       }
     } catch (error) {
+      toast.error(error.response?.data.message || error.message)
       console.log("Login Error ", error)
     }
   }
@@ -69,6 +72,11 @@ const Login = () => {
           </div>
         </div>
       </main>
+      {/* React Tostify Container */}
+      <ToastContainer 
+        position="top-center"
+        autoClose={3000}
+      />
     </section>
   )
 }

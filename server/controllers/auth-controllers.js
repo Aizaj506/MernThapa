@@ -61,7 +61,7 @@ const login = async (req, res) => {
         const existsUser = await User.findOne({ email });
         // console.log(existsUser)
         if (!existsUser) {
-            return res.status(400).json({ message: 'Invalid Email or Password' })
+            return res.status(400).json({ message: 'User Does Not Exists!' })
         }
 
         // Compare password

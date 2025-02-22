@@ -7,7 +7,7 @@ const validate =  (schema) => async (req, res, next) => {
         // return res.status(400).json({ errors: error.errors.map(err => err.message) });
         const status = 422;
         const message = "Fill the input properly"
-        const extraDetails = err.errors.map(err=> err.message);
+        const extraDetails = err.errors[0];
         const error = {
             status,
             message,
