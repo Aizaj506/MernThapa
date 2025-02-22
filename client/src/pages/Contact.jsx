@@ -1,23 +1,46 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import axios from 'axios';
 import contactImage from '../assets/images/contactImage.webp';
+import { AuthContext } from '../context/authContext';
 
 const Contact = () => {
+  const { user } = useContext(AuthContext)
+  const [userData, setUserData] = useState(true)
+  // console.log(userData)
   const [contact, setContact] = useState({
-    name:"",
+    name: "",
     email: "",
     message: ""
   })
 
+  // If User is Logged In, Pre-fill Contact Details
+  useEffect(() => {
+    if (userData && user) {
+      setContact({
+        name: user.username,
+        email: user.email,
+        message: ""
+      });
+      setUserData(false);
+    }
+  }, [user, userData]);
+  
   const handleInputChange = (event) => {
     const name = event.target.name;
     const val = event.target.value;
-    console.log({ [name]: val })
-    setUser({ ...user, [name]: val })
+    // console.log({ [name]: val })
+    setContact({ ...contact, [name]: val })
   }
 
-  const handleUserContactFormSubmit = (event) => {
+  const handleUserContactFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(contact);
+    console.log(contact)
+    try {
+      const response = await axios.post( "http://localhost:5000/api/form/contact", contact);
+      console.log("Form submitted successfully:", response.data);
+    } catch (error) {
+      console.error("Error submitting form:", error.response?.data || error.message);
+    }
   }
   return (
     <section className='h-[700px] bg-blue-950 text-white mt-10'>
@@ -27,7 +50,7 @@ const Contact = () => {
             <div className='flex flex-col gap-4 justify-center items-center m-auto w-[284px]'>
               <h1 className='text-2xl font-bold'>Contact Us!</h1>
               <hr className="border-t-2 border-gray-400 w-full my-4" />
-              <form onSubmit={handleUserContactFormSubmit} action="" className='flex flex-col gap-4 w-full'>
+              <form onSubmit={handleUserContactFormSubmit} className='flex flex-col gap-4 w-full'>
                 <div className='flex items-center justify-between'>
                   <label htmlFor="name" className='font-bold'>Name</label>
                   <input type="text" name='name' id='name' value={contact.name} onChange={handleInputChange} placeholder='Your name' className='p-1 outline-none text-black bg-gray-300 rounded-md shadow-md shadow-blue-300 hover:shadow-green-500' />

@@ -5,7 +5,9 @@ const Contact = require("../models/contact-model")
 //Logic for Contact Form
 //*````````````````````````````````
 const contactForm = async (req, res) => {
+    console.log("Hello from contact")
     try {
+        console.log(req.body)
         const { name, email, message } = req.body;
 
         // Save contact data to database

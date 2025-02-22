@@ -7,7 +7,7 @@ import { AuthContext } from '../context/authContext';
 const Register = () => {
 
   const navigate = useNavigate()
-  const storeTokenInLocalStorage = useContext(AuthContext)
+  const {storeTokenInLocalStorage} = useContext(AuthContext)
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -30,7 +30,6 @@ const Register = () => {
           'Content-Type': 'application/json'
         }
       });
-
       console.log("Response Data:", response);
 
       if(response.status === 201){

@@ -88,5 +88,17 @@ const login = async (req, res) => {
 }
 
 
+//*````````````````````````````````
+//Logic for Users Data
+//*````````````````````````````````
+const userData = async (req,res,next) => {
+    try {
+        const userData = req.user;
+        // console.log("Users Data ",userData)
+        return res.status(200).json({userData})
+    } catch (error) {
+        console.log('Erorr from the userData route ', error)
+    }
+}
 
-module.exports = { home, register, login}
+module.exports = { home, register, login, userData}

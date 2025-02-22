@@ -5,8 +5,8 @@ import { AuthContext } from '../context/authContext'
 const Navbar = () => {
   const { isLoggedIn } = useContext(AuthContext)
   return (
-    <header className='fixed top-0 left-0 w-full shadow-md text-xl h-15 flex justify-center items-center font-bold text-gray-800 dark:text-gray-400 bg-gray-300'>
-      <div className="container flex justify-between">
+    <header className='shadow-md text-xl h-15 p-8 flex justify-center items-center font-bold text-gray-800 dark:text-gray-400 bg-gray-300 '>
+      <div className="container flex justify-between items-center">
         <div className="logo-brand text-2xl">
           <NavLink href="/">MyWeb</NavLink>
         </div>

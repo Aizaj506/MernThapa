@@ -15,18 +15,22 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="service" element={<Service />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="register" element={<Register />} />
-        <Route path="login" element={<Login />} />
-        <Route path="logout" element={<Logout />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-      <Footer />
+      <div className="flex flex-col h-screen">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="service" element={<Service />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="register" element={<Register />} />
+            <Route path="login" element={<Login />} />
+            <Route path="logout" element={<Logout />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </BrowserRouter>
   )
 }

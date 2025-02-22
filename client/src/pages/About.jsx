@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router'
 import aboutImage from "/src/assets/images/aboutImage.webp"
 import aboutImage2 from "/src/assets/images/aboutImage2.webp"
+import { AuthContext } from '../context/authContext'
 
 
 const About = () => {
+  const {user} = useContext(AuthContext);
   const navigate = useNavigate()
   const btnConnectNow = () => {
     navigate('/contact')
@@ -13,11 +15,11 @@ const About = () => {
     navigate('/service')
   }
   return (
-    <main className=' bg-blue-950 mt-14'>
+    <main className=' bg-blue-950 pt-14'>
       <section>
         <div className="container flex flex-col justify-around items-start sm:flex-row">
           <div className='text-content w-[350px] sm:w-[550px] mt-10 ml-4 text-white font-bold'>
-            <p className='text-sm'>Welcome Aizaj Samani</p>
+            <p className='text-sm'>Hello {user.username}</p>
             <h1 className='text-2xl my-3'>Welcome to MyWeb</h1>
             <p className='mb-3 '>
               Welcome to our world of innovation and technology! We are a passionate team of developers dedicated to crafting high-quality web solutions that drive businesses forward. With expertise in modern technologies like React.js, Node.js, and JavaScript, we build user-friendly, scalable, and performance-driven applications.
