@@ -36,14 +36,14 @@ const Contact = () => {
     event.preventDefault();
     console.log(contact)
     try {
-      const response = await axios.post( "http://localhost:5000/api/form/contact", contact);
+      const response = await axios.post("http://localhost:5000/api/connect/contact",contact);
       console.log("Form submitted successfully:", response.data);
     } catch (error) {
       console.error("Error submitting form:", error.response?.data || error.message);
     }
   }
   return (
-    <section className='h-[700px] bg-blue-950 text-white mt-10'>
+    <section className='h-[700px] bg-blue-950 text-white'>
       <main>
         <div className='h-screen flex justify-around'>
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 justify-items-center'>

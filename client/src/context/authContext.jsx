@@ -14,8 +14,8 @@ const AuthProvider = ({children}) => {
 
     // Store token in localStorage and state
     const storeTokenInLocalStorage = (serverToken) => {
-        localStorage.setItem("Token", serverToken)
         setToken(serverToken)
+        localStorage.setItem("Token", serverToken)
     }
 
     //Logout Functionality

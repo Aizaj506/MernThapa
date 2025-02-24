@@ -5,6 +5,7 @@ const app = express()
 const authRoutes = require("./Routes/auth-router")
 const contactRoute = require("./Routes/contact-router");
 const serviceRoute = require("./Routes/service-router");
+const adminRoutes = require("./Routes/admin-router");
 const connectDB = require('./utils/db');
 const errorHandler = require("./middleware/error-middleware");
 
@@ -29,8 +30,9 @@ app.use((req, res, next) => {
 
 // Mount the router at the root path
 app.use('/api/users', authRoutes)
-app.use('/api/form', contactRoute)
+app.use('/api/connect', contactRoute)
 app.use('/api/data', serviceRoute)
+app.use('/api/admin', adminRoutes)
 
 // Connect to MongoDB Atlas
 connectDB();

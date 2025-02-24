@@ -32,7 +32,7 @@ const Register = () => {
       if (response.status === 201) {
         storeTokenInLocalStorage(response.data.token)
         setUser({ username: "", email: "", phone: "", password: "" })
-        navigate('/login')
+        navigate('/')
       }
     } catch (error) {
       console.log("Regesterd Error: ", error.response)
