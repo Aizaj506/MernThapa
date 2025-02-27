@@ -62,7 +62,7 @@ const AuthProvider = ({children}) => {
     },[])
     
     return(
-        <AuthContext.Provider value={{storeTokenInLocalStorage,logout,isLoggedIn,user,services}}>
+        <AuthContext.Provider value={{storeTokenInLocalStorage,logout,isLoggedIn,user,services,token}}>
             {children}
         </AuthContext.Provider>
     )

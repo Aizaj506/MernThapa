@@ -7,7 +7,7 @@ const adminMiddleware = async (req, res, next) => {
         }
 
         // Ensure isAdmin is a boolean
-        const isAdmin = req.user.isAdmin === true || req.user.isAdmin === 'true';
+        const isAdmin = req.user.isAdmin;
         console.log("Is Admin : ",isAdmin);
         if (!isAdmin) {
             console.log("Access Denied: User is not an Admin.");

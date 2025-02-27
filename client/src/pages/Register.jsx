@@ -32,7 +32,9 @@ const Register = () => {
       if (response.status === 201) {
         storeTokenInLocalStorage(response.data.token)
         setUser({ username: "", email: "", phone: "", password: "" })
-        navigate('/')
+        toast.success("User Registration successfully!");
+        // ✅ Redirect after Registration
+        setTimeout(() => navigate("/"), 2000);
       }
     } catch (error) {
       console.log("Regesterd Error: ", error.response)
@@ -42,7 +44,7 @@ const Register = () => {
     }
   };
   return (
-    <section className='h-[700px] bg-blue-950 text-white'>
+    <section className='h-[700px] bg-blue-950 text-white transition-all'>
       <main>
         <div className='h-screen flex justify-around'>
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 justify-items-center'>

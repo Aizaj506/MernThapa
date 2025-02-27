@@ -8,5 +8,16 @@ router.route('/users')
     .get(authMiddleware,adminMiddleware,adminControllers.getAllUsers);
 
 router.route('/contacts')
-    .get(authMiddleware,adminMiddleware,adminControllers.getAllContacts)
+    .get(authMiddleware,adminMiddleware,adminControllers.getAllContacts);
+
+router.route('/users/delete/:id')
+    .delete(authMiddleware, adminMiddleware, adminControllers.deleteUserById)
+
+router.route('/users/:id')
+    .get(authMiddleware, adminMiddleware, adminControllers.getUserById)
+
+router.route('/users/update/:id')
+    .patch(authMiddleware, adminMiddleware, adminControllers.updateUserById)
+    
+
 module.exports = router;
